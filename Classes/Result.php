@@ -132,7 +132,7 @@ class Result
      * @return array<Error>
      * @api
      */
-    public function getErrors(string $messageTypeFilter = null): array
+    public function getErrors(?string $messageTypeFilter = null): array
     {
         return $this->filterMessages($this->errors, $messageTypeFilter);
     }
@@ -144,7 +144,7 @@ class Result
      * @return array<Warning>
      * @api
      */
-    public function getWarnings(string $messageTypeFilter = null): array
+    public function getWarnings(?string $messageTypeFilter = null): array
     {
         return $this->filterMessages($this->warnings, $messageTypeFilter);
     }
@@ -156,7 +156,7 @@ class Result
      * @return array<Notice>
      * @api
      */
-    public function getNotices(string $messageTypeFilter = null): array
+    public function getNotices(?string $messageTypeFilter = null): array
     {
         return $this->filterMessages($this->notices, $messageTypeFilter);
     }
@@ -168,7 +168,7 @@ class Result
      * @return Error
      * @api
      */
-    public function getFirstError(string $messageTypeFilter = null)
+    public function getFirstError(?string $messageTypeFilter = null)
     {
         $matchingErrors = $this->filterMessages($this->errors, $messageTypeFilter);
         reset($matchingErrors);
@@ -182,7 +182,7 @@ class Result
      * @return Warning
      * @api
      */
-    public function getFirstWarning(string $messageTypeFilter = null)
+    public function getFirstWarning(?string $messageTypeFilter = null)
     {
         $matchingWarnings = $this->filterMessages($this->warnings, $messageTypeFilter);
         reset($matchingWarnings);
@@ -196,7 +196,7 @@ class Result
      * @return Notice
      * @api
      */
-    public function getFirstNotice(string $messageTypeFilter = null)
+    public function getFirstNotice(?string $messageTypeFilter = null)
     {
         $matchingNotices = $this->filterMessages($this->notices, $messageTypeFilter);
         reset($matchingNotices);
@@ -213,7 +213,7 @@ class Result
      * @return Result
      * @api
      */
-    public function forProperty(string $propertyPath = null): Result
+    public function forProperty(?string $propertyPath = null): Result
     {
         if ($propertyPath === '' || $propertyPath === null) {
             return $this;
@@ -411,7 +411,7 @@ class Result
      * @param-out array<string, array<int, mixed>> $result
      * @return void
      */
-    public function flattenTree(string $propertyName, array &$result, array $level = [], string $messageTypeFilter = null)
+    public function flattenTree(string $propertyName, array &$result, array $level = [], ?string $messageTypeFilter = null)
     {
         if (count($this->$propertyName) > 0) {
             $propertyPath = implode('.', $level);
@@ -430,7 +430,7 @@ class Result
      * @param string $messageTypeFilter If specified only messages implementing the given class name are taken into account
      * @return array the filtered message instances
      */
-    protected function filterMessages(array $messages, string $messageTypeFilter = null): array
+    protected function filterMessages(array $messages, ?string $messageTypeFilter = null): array
     {
         if ($messageTypeFilter === null) {
             return $messages;
