@@ -29,7 +29,7 @@ class ResultTest extends \PHPUnit\Framework\TestCase
         $this->result = new Result();
     }
 
-    public function dataTypes()
+    public static function dataTypes()
     {
         return [
             ['Error', 'Errors'],
