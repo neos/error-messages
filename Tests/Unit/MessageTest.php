@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Error\Messages\Tests\Unit;
 
 /*
@@ -16,7 +19,7 @@ use Neos\Error\Messages\Message;
 /**
  * Testcase for the Message object
  */
-class MessageTest extends \PHPUnit\Framework\TestCase
+final class MessageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test
@@ -26,7 +29,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $someMessage = 'The message';
         $someMessageCode = 12345;
         $message = new Message($someMessage, $someMessageCode);
-        self::assertEquals($someMessage, $message->getMessage());
+        self::assertSame($someMessage, $message->getMessage());
     }
 
     /**
@@ -37,7 +40,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $someArguments = ['Foo', 'Bar'];
         $someMessageCode = 12345;
         $message = new Message('', $someMessageCode, $someArguments);
-        self::assertEquals($someArguments, $message->getArguments());
+        self::assertSame($someArguments, $message->getArguments());
     }
 
     /**
@@ -48,7 +51,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $someMessage = 'The message';
         $someMessageCode = 12345;
         $message = new Message($someMessage, $someMessageCode);
-        self::assertEquals($someMessageCode, $message->getCode());
+        self::assertSame($someMessageCode, $message->getCode());
     }
 
     /**
@@ -59,7 +62,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $someMessage = 'The message';
         $someMessageCode = 12345;
         $message = new Message($someMessage, $someMessageCode);
-        self::assertEquals($someMessage, $message->render());
+        self::assertSame($someMessage, $message->render());
     }
 
     /**
@@ -74,7 +77,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $expectedResult = 'The message with Bar and Foo';
         $actualResult = $message->render();
-        self::assertEquals($expectedResult, $actualResult);
+        self::assertSame($expectedResult, $actualResult);
     }
 
     /**
@@ -89,6 +92,6 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $expectedResult = 'The message with Bar and Foo';
         $actualResult = (string)$message;
-        self::assertEquals($expectedResult, $actualResult);
+        self::assertSame($expectedResult, $actualResult);
     }
 }

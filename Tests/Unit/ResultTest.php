@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Neos\Error\Messages\Tests\Unit;
 
 /*
@@ -17,7 +20,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 /**
  * Testcase for the Error Container object
  */
-class ResultTest extends \PHPUnit\Framework\TestCase
+final class ResultTest extends \PHPUnit\Framework\TestCase
 {
     /**
      *
@@ -30,18 +33,16 @@ class ResultTest extends \PHPUnit\Framework\TestCase
         $this->result = new Result();
     }
 
-    public static function dataTypes(): array
+    public static function dataTypes(): \Iterator
     {
-        return [
-            ['Error', 'Errors'],
-            ['Warning', 'Warnings'],
-            ['Notice', 'Notices']
-        ];
+        yield ['Error', 'Errors'];
+        yield ['Warning', 'Warnings'];
+        yield ['Notice', 'Notices'];
     }
 
     protected function getMockMessage(string $type): MockObject
     {
-        return $this->getMockBuilder('Neos\Error\Messages\\' . $type)->disableOriginalConstructor()->getMock();
+        return $this->createMock('Neos\Error\Messages\\' . $type);
     }
 
     /**
