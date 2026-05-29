@@ -13,14 +13,16 @@ namespace Neos\Error\Messages\Tests\Unit;
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
-
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Neos\Error\Messages\Result;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Testcase for the Error Container object
  */
-final class ResultTest extends \PHPUnit\Framework\TestCase
+final class ResultTest extends TestCase
 {
     /**
      *
@@ -45,10 +47,8 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         return $this->createMock('Neos\Error\Messages\\' . $type);
     }
 
-    /**
-     * @test
-     * @dataProvider dataTypes
-     */
+    #[DataProvider('dataTypes')]
+    #[Test]
     public function addedMessagesShouldBeRetrievableAgain(string $dataTypeInSingular, string $dataTypeInPlural)
     {
         $message = $this->getMockMessage($dataTypeInSingular);
@@ -59,10 +59,8 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([$message], $this->result->$getterMethodName());
     }
 
-    /**
-     * @test
-     * @dataProvider dataTypes
-     */
+    #[DataProvider('dataTypes')]
+    #[Test]
     public function getMessageShouldNotBeRecursive(string $dataTypeInSingular, string $dataTypeInPlural)
     {
         $message = $this->getMockMessage($dataTypeInSingular);
@@ -73,10 +71,8 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->result->$getterMethodName());
     }
 
-    /**
-     * @test
-     * @dataProvider dataTypes
-     */
+    #[DataProvider('dataTypes')]
+    #[Test]
     public function getFirstMessageShouldReturnFirstMessage(string $dataTypeInSingular, string $dataTypeInPlural)
     {
         $message1 = $this->getMockMessage($dataTypeInSingular);
@@ -89,9 +85,7 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         self::assertSame($message1, $this->result->$getterMethodName());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forPropertyShouldReturnSubResult()
     {
         $container2 = $this->result->forProperty('foo.bar');
@@ -99,28 +93,22 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         self::assertSame($container2, $this->result->forProperty('foo')->forProperty('bar'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forPropertyWithEmptyStringShouldReturnSelf()
     {
         $container2 = $this->result->forProperty('');
         self::assertSame($container2, $this->result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forPropertyWithNullShouldReturnSelf()
     {
         $container2 = $this->result->forProperty(null);
         self::assertSame($container2, $this->result);
     }
 
-    /**
-     * @test
-     * @dataProvider dataTypes
-     */
+    #[DataProvider('dataTypes')]
+    #[Test]
     public function hasMessagesShouldReturnTrueIfTopLevelObjectHasMessages(string $dataTypeInSingular, string $dataTypeInPlural)
     {
         $message = $this->getMockMessage($dataTypeInSingular);
@@ -131,10 +119,8 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->result->$methodName());
     }
 
-    /**
-     * @test
-     * @dataProvider dataTypes
-     */
+    #[DataProvider('dataTypes')]
+    #[Test]
     public function hasMessageshouldReturnTrueIfSubObjectHasErrors(string $dataTypeInSingular, string $dataTypeInPlural)
     {
         $addMethodName = 'add' . $dataTypeInSingular;
@@ -145,10 +131,8 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->result->$methodName());
     }
 
-    /**
-     * @test
-     * @dataProvider dataTypes
-     */
+    #[DataProvider('dataTypes')]
+    #[Test]
     public function hasMessagesShouldReturnFalseIfSubObjectHasNoErrors(string $dataTypeInSingular, string $dataTypeInPlural)
     {
         $methodName = 'has' . $dataTypeInPlural;
@@ -158,10 +142,8 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->result->$methodName());
     }
 
-    /**
-     * @test
-     * @dataProvider dataTypes
-     */
+    #[DataProvider('dataTypes')]
+    #[Test]
     public function getFlattenedMessagesShouldReturnAllSubMessages(string $dataTypeInSingular, string $dataTypeInPlural)
     {
         $message1 = $this->getMockMessage($dataTypeInSingular);
@@ -188,10 +170,8 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, $this->result->$getMethodName());
     }
 
-    /**
-     * @test
-     * @dataProvider dataTypes
-     */
+    #[DataProvider('dataTypes')]
+    #[Test]
     public function getFlattenedMessagesShouldNotContainEmptyResults(string $dataTypeInSingular, string $dataTypeInPlural)
     {
         $message1 = $this->getMockMessage($dataTypeInSingular);
@@ -210,9 +190,7 @@ final class ResultTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, $this->result->$getMethodName());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function mergeShouldMergeTwoResults()
     {
         $notice1 = $this->getMockMessage('Notice');
