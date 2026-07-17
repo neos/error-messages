@@ -283,7 +283,7 @@ class Result
     /**
      * Does the current Result object have Warnings? (Recursively)
      *
-     * @phpstan-assert-if-true Error $this->getFirstWarning()
+     * @phpstan-assert-if-true Warning $this->getFirstWarning()
      * @return boolean
      * @api
      */
@@ -309,8 +309,8 @@ class Result
     /**
      * Does the current Result object have Notices? (Recursively)
      *
-     * @return boolean
-     * @phpstan-assert-if-true Error $this->getFirstNotice()
+     * @return bool
+     * @phpstan-assert-if-true Notice $this->getFirstNotice()
      * @api
      */
     public function hasNotices()
